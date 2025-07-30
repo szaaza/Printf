@@ -6,82 +6,95 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:53:18 by codespace         #+#    #+#             */
-/*   Updated: 2025/07/28 10:19:20 by codespace        ###   ########.fr       */
+/*   Updated: 2025/07/30 15:43:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
+
 /*
-#include "ft_printf.h"  
-int ft_print_format(format, ...);
+int ft_printf(const char *format, ...)
+{
+    va_list args;
+    int i;
+    int total_len;
+    
+	total_len = 0;
+	i = 0;
+    va_start(args, format);
+	while (format[i] != '\0')
+    {
+        if (format[i] == '%')
+        {
+            total_len += ft_printf_declaration(format[i + 1]);
+            i++;
+        }
+        else
+        {
+            write(1, &format[i], 1);
+            total_len++;
+        }
+        i++;
+    }
+    
+    va_end(args);
+    return (total_len);
+}
 */
-int ft_printf(const char *start, ...)
+
+int ft_printf(const char *format, ...)
 {
 	va_list args;
-	int i;
-	int total_len;
-	int c;
+	int i = 0;
+	int char_count = 0;
 
-	i = 0;
-	total_len = 0;
-	va_start(args, start);
-	while (start[i])
+	va_start(args, format);
+	while (format[i])
 	{
-		if (start[i] == '%')
-		{	
-			if (start[i + 1] == '%')
-			{
-				write(1, &start[i], 1);
-				total_len++;
-				i++;
-			}
-			ft_printf_declaration(start[i + 1]);
-			c = va_arg(args, unsigned int);
-			total_len += ft_print_format(start[i + 1], c);
+		if (format[i] == '%' && format[i + 1])
+		{
 			i++;
+			ft_format_dispatcher(format[i], &args, &char_count, &i);
 		}
 		else
 		{
-			write(1, &start[i], 1);
-			total_len++;
+			write(1, &format[i], 1);
+			char_count++;
 		}
 		i++;
 	}
 	va_end(args);
-	return (total_len);
+	return (char_count);
 }
 
-int main(int argc, char **argv)
+
+
+#include <stdarg.h>
+
+static int	ft_format_dispatcher(char specifier, va_list *args, int *char_count, int *i)
 {
-	int sum1;
-
-	sum1 = ft_printf("kjasdh");
-	// printf("%d,.,.,%010.1d\n" , sum1, sum1);
-	// sum1 = ff(4, 5, 'f', 6, 'o', 7, 'i', 8, 'k');
-	printf("%c\n" , sum1);
-
-	return (0);
-}
-
-// This function should handle different format specifiers
-static int ft_printf_declaration(char format)
-{
-	if (format == '%'){	
-		ft_putchar_fd(format, 1);
-		return (1); // Placeholder for percent sign handling
-	}
-	else if (format == 'c')
-		
-	else if (format == 's')
-		return (2); // Placeholder for string handling
-	else if (format == 'd' || format == 'i')
-		return (3); // Placeholder for integer handling
-	else if (format == 'u')
-		return (4); // Placeholder for unsigned integer handling
-	else if (format == 'x' || format == 'X')
-		return (5); // Placeholder for hexadecimal handling
+	if (specifier == 'c')
+		return (ft_c(va_arg(*args, int), char_count));
+	else if (specifier == 's')
+		return (ft_s(va_arg(*args, char *), char_count));
+	else if (specifier == 'p')
+		return (ft_p(va_arg(*args, size_t), char_count));
+	else if (specifier == 'd' || specifier == 'i')
+		return (ft_d_i(va_arg(*args, int), char_count));
+	else if (specifier == 'u')
+		return (ft_u(va_arg(*args, unsigned int), char_count));
+	else if (specifier == 'x')
+		return (ft_lx_ux(va_arg(*args, unsigned int), char_count, 'x'));
+	else if (specifier == 'X')
+		return (ft_lx_ux(va_arg(*args, unsigned int), char_count, 'X'));
+	else if (specifier == '%')
+		return (ft_c('%', char_count));
 	else
-		return (0); // Unknown format specifier
+	{
+		(*i)--;  // Rewind index because it wasn't a valid format
+		return (-1); // Invalid specifier
+	}
 }
+
