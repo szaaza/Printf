@@ -6,7 +6,7 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:53:18 by codespace         #+#    #+#             */
-/*   Updated: 2025/07/30 17:17:50 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:58:25 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,46 @@
 
 #include "ft_printf.h"
 
+#include "ft_printf.h"
+
+static int	ft_format_loop(const char *format, va_list *args);
+
 int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int i = 0;
-	int count = 0;
+	va_list	args;
+	int		result;
 
 	va_start(args, format);
+	result = ft_format_loop(format, &args);
+	va_end(args);
+	return (result);
+}
+
+static int	ft_format_loop(const char *format, va_list *args)
+{
+	int	i;
+	int	count;
+	int	ret;
+
+	i = 0;
+	count = 0;
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
 			i++;
-			ft_format_dispatcher(format[i], &args, &count, &i);
+			ret = ft_format_dispatcher(format[i], args, &count, &i);
+			if (ret == -1)
+				return (-1);
 		}
 		else
 		{
-			write(1, &format[i], 1);
+			if (write(1, &format[i], 1) == -1)
+				return (-1);
 			count++;
 		}
 		i++;
 	}
-	va_end(args);
 	return (count);
 }
 
@@ -61,7 +79,7 @@ int	ft_format_dispatcher(char specifier, va_list *args, int *count, int *i)
 		return (ft_c('%', count));
 	else
 	{
-		(*i)--; // Not valid, go back
+		(*i)--;
 		return (-1);
 	}
 }

@@ -1,42 +1,44 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/30 16:45:45 by codespace         #+#    #+#              #
-#    Updated: 2025/07/30 17:18:12 by sazanjan         ###   ########.fr        #
+#    Updated: 2025/07/31 11:58:53 by sazanjan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Name of the library file that will be created
+
+# Name of the library
 NAME = libftprintf.a
 
-# List of all source files
-SRC = ft_printf.c ft_helpers.c
-
-# Name of the object files (we replace .c with .o)
+# Source and object files
+SRC = ft_printf.c ft_helpers.c ft_hex.c
 OBJ = $(SRC:.c=.o)
 
-# Compiler and flags (show all warnings, treat warnings as errors)
+# Compiler settings
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# Default rule — this is what runs when you type just `make`
+# Default target
 all: $(NAME)
 
-# Rule to create the static library
+# Rule to build the static library
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-# Clean rule — deletes object files
+# Delete object files
 clean:
 	rm -f $(OBJ)
 
-# Fclean — deletes everything, including the library
+# Delete object files and the library
 fclean: clean
 	rm -f $(NAME)
 
 # Recompile everything from scratch
 re: fclean all
+
+# Phony targets
+.PHONY: all clean fclean re
