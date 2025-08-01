@@ -6,15 +6,9 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:53:18 by codespace         #+#    #+#             */
-/*   Updated: 2025/07/31 11:58:25 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:04:03 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
-
-#include "ft_printf.h"
 
 #include "ft_printf.h"
 
