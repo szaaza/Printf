@@ -6,7 +6,7 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 09:54:01 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/04 15:24:46 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:27:34 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stddef.h>
+# include <stdlib.h>
+
+# if defined(__linux__)
+#  define PTRNULL "(nil)"
+#  define NPTRSIZE 5
+# elif defined(__APPLE__)
+#  define PTRNULL "0x0"
+#  define NPTRSIZE 3
+# endif
 
 int	ft_printf(const char *format, ...);
 int	ft_format_dispatcher(char specifier, va_list *args, int *count, int *i);

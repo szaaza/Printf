@@ -6,7 +6,7 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:53:18 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/04 15:46:46 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:26:59 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_format_dispatcher(char specifier, va_list *args, int *count, int *i)
 	else if (specifier == 's')
 		return (ft_s(va_arg(*args, char *), count));
 	else if (specifier == 'p')
-		return (ft_p(va_arg(*args,  void *), count));
+		return (ft_p(va_arg(*args, void *), count));
 	else if (specifier == 'd' || specifier == 'i')
 		return (ft_d_i(va_arg(*args, int), count));
 	else if (specifier == 'u')

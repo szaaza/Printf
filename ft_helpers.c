@@ -6,11 +6,12 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:34:02 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/04 15:46:02 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:28:36 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
+#include <unistd.h>
 
 int	ft_c(char c, int *count)
 {
@@ -71,28 +72,26 @@ int	ft_u(unsigned int u, int *count)
 
 int	ft_p(void *p, int *count)
 {
-	const char *base = "0123456789abcdef";
-	char chars[30];
-	int i = 0;
-	size_t ptr = (size_t)p;
+	const char	*base;
+	char		chars[30];
+	int			i;
+	uintptr_t	ptr;
 
+	base = "0123456789abcdef";
+	i = 0;
+	ptr = (uintptr_t)p;
 	if (ptr == 0)
-		return (ft_s("(nil)", count));
-	
+		return (ft_s("0x0", count));
 	if (ft_s("0x", count) == -1)
 		return (-1);
-
-		while (ptr)
+	while (ptr)
 	{
-		chars[i++] = base[ptr % 16];
+		chars[i] = base[ptr % 16];
+		i++;
 		ptr /= 16;
 	}
-	
-	// Print the hexadecimal digits in reverse order
-	while (--i >= 0)
-	{
+	while (i--)
 		if (ft_c(chars[i], count) == -1)
 			return (-1);
-	}
 	return (0);
 }
