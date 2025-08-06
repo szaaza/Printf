@@ -6,7 +6,7 @@
 /*   By: sazanjan <sazanjan@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 09:54:01 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/06 14:27:34 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:35:42 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdarg.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 # if defined(__linux__)
 #  define PTRNULL "(nil)"
