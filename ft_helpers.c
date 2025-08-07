@@ -6,11 +6,12 @@
 /*   By: sazanjan <<sazanjan@student.42heilbronn    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:34:02 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/07 12:53:06 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:03:08 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <unistd.h>
 
 int	ft_c(char c, int *count)
 {
