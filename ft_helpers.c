@@ -6,7 +6,7 @@
 /*   By: sazanjan <<sazanjan@student.42heilbronn    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:34:02 by codespace         #+#    #+#             */
-/*   Updated: 2025/08/07 13:03:08 by sazanjan         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:36:24 by sazanjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_p(void *p, int *count)
 	i = 0;
 	ptr = (uintptr_t)p;
 	if (ptr == 0)
-		return (ft_s(NPTRSIZE, count));
+		return (ft_s(PTRNULL, count));
 	if (ft_s("0x", count) == -1)
 		return (-1);
 	while (ptr)
